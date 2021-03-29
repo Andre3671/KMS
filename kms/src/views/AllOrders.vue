@@ -2,71 +2,64 @@
   <div class="home">
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <h1> All orders</h1>
-       <vs-table
-      :data="users">
-      <template slot="header">
-        <h3>
-          Orders
-        </h3>
-      </template>
+   <vs-table :data="users">
       <template slot="thead">
         <vs-th>
-          Id
+          Email
         </vs-th>
         <vs-th>
-          Customer
+          Name
         </vs-th>
         <vs-th>
-          Hullnr
+          Nro1
         </vs-th>
         <vs-th>
-          Renewal date
+          Nro2
         </vs-th>
       </template>
 
-    <template slot-scope="{data}">
+      <template slot-scope="{data}">
         <vs-tr :key="indextr" v-for="(tr, indextr) in data" >
-          <vs-td :data="data[indextr].id">
-            {{data[indextr].id}}
+          <vs-td :data="tr.email">
+            {{tr.email}}
+
+            <template slot="edit">
+              <vs-input v-model="tr.email" class="inputx" placeholder="Email"/>
+            </template>
           </vs-td>
 
-          <vs-td :data="data[indextr].name">
-            {{data[indextr].name}}
+          <vs-td :data="tr.username">
+            {{tr.username}}
+
+            <template slot="edit">
+              <vs-select
+                label="Users"
+                v-model="tr.username"
+                >
+                <vs-select-item :key="index" :vs-value="item.name" :vs-text="item.name" v-for="(item,index) in users" />
+              </vs-select>
+            </template>
           </vs-td>
 
-          <vs-td :data="data[indextr].id">
-            {{data[indextr].id}}
+          <vs-td :data="tr.id">
+            {{tr.id}}
+
+            <template slot="edit">
+              <vs-input-number v-model="tr.id"/>
+            </template>
           </vs-td>
 
-           <vs-td :data="data[indextr].id">
-            {{GetDate()}}
-          </vs-td>
-            <template class="expand-user"  slot="expand">
-             <div class="con-expand-users">
-              <div class="con-btns-user">
-                <div class="con-userx">
-                  <vs-avatar :badge="tr.id" size="45px" :src="`https://randomuser.me/api/portraits/women/${indextr}.jpg`"/>
-                  <span>
-                    {{ tr.name }}
-                  </span>
-                </div>
+          <vs-td :data="tr.id">
+            {{tr.id}}
 
-                <div>
-                  <vs-button vs-type="border" size="small" icon="phone_in_talk"></vs-button>
-                  <vs-button vs-type="gradient" size="small" color="success" icon="send"></vs-button>
-                  <vs-button vs-type="flat" size="small" color="danger" icon="delete_sweep"></vs-button>
-                </div>
-              </div>
-              <vs-list>
-                <vs-list-item icon="mail" title="Email" :subtitle="tr.email"></vs-list-item>
-                <vs-list-item icon="check" title="Website" :subtitle="tr.website"></vs-list-item>
-              </vs-list>
-            </div>
-          </template>
+            <template slot="edit">
+              <vs-slider :max="20" v-model="tr.id"/>
+            </template>
+          </vs-td>
+
         </vs-tr>
       </template>
     </vs-table>
-
   </div>
 </template>
 
@@ -74,8 +67,9 @@
 
 export default {
   name: 'AllOrders',
-  data:()=>({
-   users:[
+  data() {
+    return {
+       users:[
       {
         "id": 1,
         "name": "Leanne Graham",
@@ -147,7 +141,8 @@ export default {
         "website": "ambrose.net",
       }
     ]
-  }),
+    }
+  },
   methods:{
     GetDate:function() {
 var today = new Date();
