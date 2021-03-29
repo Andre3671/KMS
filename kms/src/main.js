@@ -6,10 +6,12 @@ Vue.config.productionTip = false
 
 
 import 'vuesax/dist/vuesax.css' //Vuesax styles
+import router from './router'
 Vue.use(Vuesax, {
   // options here
 })
 Vue.use(VueRouter)
 new Vue({
-  render: h => h(App),
+  router,
+  render: h => h(App)
 }).$mount('#app')
