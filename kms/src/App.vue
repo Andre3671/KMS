@@ -1,72 +1,40 @@
 <template>
   <div id="app">
-     <vs-button @click="active=!active" color="primary" type="filled">Open Sidebar</vs-button>
-      <vs-sidebar parent="body" default-index="1"  color="primary" class="sidebarx" spacer v-model="active">
-
-      <div class="header-sidebar" slot="header">
-        <h4>
-          User: 2142
-        </h4>
-      </div>
-
-      <vs-divider icon="View orders" position="left">
-        User
-      </vs-divider>
-      
-      <vs-sidebar-item index="1">
-        All orders
-      </vs-sidebar-item>
-
-      <vs-sidebar-item index="2">
-        My Orders
-      </vs-sidebar-item>
-
-      <vs-divider icon="Orders" position="left">
-        User
-      </vs-divider>
-
-      <vs-sidebar-item index="3">
-        Create Order
-      </vs-sidebar-item>
-      <vs-sidebar-item index="4">
-        Export order
-      </vs-sidebar-item>
-      <vs-sidebar-item index="5" >
-        Import Order
-      </vs-sidebar-item>
-
-      <div class="footer-sidebar" slot="footer">
-        <vs-button icon="reply" color="danger" type="flat">log out</vs-button>
-        <vs-button icon="settings" color="primary" type="border"></vs-button>
-      </div>
-
-    </vs-sidebar>
-    <Mainpage msg="wel to Your Vue.js App"/>
+   <vs-navbar color="#7d33ff" text-white square center-collapsed v-model="active">
+        <template #left>
+          <!-- logo -->
+        </template>
+        <vs-navbar-item :active="active == 'guide'" @click="Routerpush('/')" id="guide">
+          All orders
+        </vs-navbar-item>
+        <vs-navbar-item :active="active == 'docs'" @click="Routerpush('/myorders')" id="docs">
+         My orders
+        </vs-navbar-item>
+        <vs-navbar-item :active="active == 'components'" @click="Routerpush('/addorder')" id="components">
+          Add order
+        </vs-navbar-item>
+        <vs-navbar-item :active="active == 'license'" @click="Routerpush('/import')" id="license">
+          Import order
+        </vs-navbar-item>
+        <template #right>
+          <vs-button color="#fff" flat >Login</vs-button>
+        </template>
+      </vs-navbar>
+  <div>
+      <router-view style="margin-top:3%"/>
+  </div>
+     
   </div>
 </template>
-
-<script>
-import Mainpage from './components/Mainpage.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Mainpage
+  <script>
+  export default {
+    data:() => ({
+      active: 0
+    }),
+     methods:{
+    Routerpush: function(nav){
+      this.$router.push(nav);
+    }
+    }
   }
-  ,
-  data:()=>({
-    active:false,
-  })
-}
-</script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  </script>
