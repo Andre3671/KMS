@@ -2,7 +2,7 @@
   <div class="home">
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <h1> All orders</h1>
-   <vs-table :data="users">
+   <vs-table style="width:80%; margin:0 auto; ">
       <template slot="thead">
         <vs-th>
           Email
@@ -18,9 +18,9 @@
         </vs-th>
       </template>
 
-      <template slot-scope="{data}">
-        <vs-tr :key="indextr" v-for="(tr, indextr) in data" >
-          <vs-td :data="tr.email">
+      <template #tbody >
+        <vs-tr :key="indextr" v-for="(tr, indextr) in users" >
+          <vs-td >
             {{tr.email}}
 
             <template slot="edit">
@@ -28,7 +28,7 @@
             </template>
           </vs-td>
 
-          <vs-td :data="tr.username">
+          <vs-td >
             {{tr.username}}
 
             <template slot="edit">
