@@ -2,64 +2,60 @@
   <div class="home">
      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <h1> All orders</h1>
-   <vs-table :data="users">
-      <template slot="thead">
-        <vs-th>
-          Email
-        </vs-th>
-        <vs-th>
-          Name
-        </vs-th>
-        <vs-th>
-          Nro1
-        </vs-th>
-        <vs-th>
-          Nro2
-        </vs-th>
-      </template>
+<div class="center">
+      <vs-table >
+        <template #thead>
+          <vs-tr>
+            <vs-th>
+              OrderId
+            </vs-th>
+            <vs-th>
+              Customer
+            </vs-th>
+            <vs-th>
+              Expiration
+            </vs-th>
+          </vs-tr>
+        </template>
+        <template #tbody>
+          <vs-tr
+          :items="formartedItems"
+            :key="i"
+            v-for="(tr, i) in users"
+          >
+            <vs-td>
+              {{ tr.Orderid }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Customer }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Expiration }}
+            </vs-td>
 
-      <template slot-scope="{data}">
-        <vs-tr :key="indextr" v-for="(tr, indextr) in data" >
-          <vs-td :data="tr.email">
-            {{tr.email}}
-
-            <template slot="edit">
-              <vs-input v-model="tr.email" class="inputx" placeholder="Email"/>
+            <template #expand>
+              <div class="con-content">
+                <div>
+                  <h3>Order information</h3>
+                  <p>Hull number: {{tr.Hullnr}}</p>
+                  <p>Sales Id: {{tr.SalesId}}</p>
+                  <p>Order: {{tr.Order}}</p>
+                  <p>Hull number: {{tr.Cycle}}</p>
+                </div>
+                <div style="float:right">
+                  <vs-button flat icon>
+                    Send Email
+                  </vs-button>
+                  <vs-button border danger>
+                    Reset Expiration
+                  </vs-button>
+                </div>
+              </div>
             </template>
-          </vs-td>
-
-          <vs-td :data="tr.username">
-            {{tr.username}}
-
-            <template slot="edit">
-              <vs-select
-                label="Users"
-                v-model="tr.username"
-                >
-                <vs-select-item :key="index" :vs-value="item.name" :vs-text="item.name" v-for="(item,index) in users" />
-              </vs-select>
-            </template>
-          </vs-td>
-
-          <vs-td :data="tr.id">
-            {{tr.id}}
-
-            <template slot="edit">
-              <vs-input-number v-model="tr.id"/>
-            </template>
-          </vs-td>
-
-          <vs-td :data="tr.id">
-            {{tr.id}}
-
-            <template slot="edit">
-              <vs-slider :max="20" v-model="tr.id"/>
-            </template>
-          </vs-td>
-
-        </vs-tr>
-      </template>
-    </vs-table>
+          </vs-tr>
+        </template>
+      </vs-table>
+    </div>
   </div>
 </template>
 
@@ -71,76 +67,24 @@ export default {
     return {
        users:[
       {
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "website": "hildegard.org",
+        "Orderid": 1,
+        "Customer": "Leanne Graham",
+        "Hullnr": "Bret",
+        "SalesId": "Sincere@april.biz",
+        "Order": "hildegard.org",
+        "Expiration":"2021-08-05",
+        "Cycle":"2"
       },
       {
-        "id": 2,
-        "name": "Ervin Howell",
-        "username": "Antonette",
-        "email": "Shanna@melissa.tv",
-        "website": "anastasia.net",
-      },
-      {
-        "id": 3,
-        "name": "Clementine Bauch",
-        "username": "Samantha",
-        "email": "Nathan@yesenia.net",
-        "website": "ramiro.info",
-      },
-      {
-        "id": 4,
-        "name": "Patricia Lebsack",
-        "username": "Karianne",
-        "email": "Julianne.OConner@kory.org",
-        "website": "kale.biz",
-      },
-      {
-        "id": 5,
-        "name": "Chelsey Dietrich",
-        "username": "Kamren",
-        "email": "Lucio_Hettinger@annie.ca",
-        "website": "demarco.info",
-      },
-      {
-        "id": 6,
-        "name": "Mrs. Dennis Schulist",
-        "username": "Leopoldo_Corkery",
-        "email": "Karley_Dach@jasper.info",
-        "website": "ola.org",
-      },
-      {
-        "id": 7,
-        "name": "Kurtis Weissnat",
-        "username": "Elwyn.Skiles",
-        "email": "Telly.Hoeger@billy.biz",
-        "website": "elvis.io",
-      },
-      {
-        "id": 8,
-        "name": "Nicholas Runolfsdottir V",
-        "username": "Maxime_Nienow",
-        "email": "Sherwood@rosamond.me",
-        "website": "jacynthe.com",
-      },
-      {
-        "id": 9,
-        "name": "Glenna Reichert",
-        "username": "Delphine",
-        "email": "Chaim_McDermott@dana.io",
-        "website": "conrad.com",
-      },
-      {
-        "id": 10,
-        "name": "Clementina DuBuque",
-        "username": "Moriah.Stanton",
-        "email": "Rey.Padberg@karina.biz",
-        "website": "ambrose.net",
+        "Orderid": 2,
+        "Customer": "Ervin Howell",
+        "Hullnr": "Antonette",
+        "SalesId": "Shanna@melissa.tv",
+        "Order": "anastasia.net",
+        "Expiration":"2021-08-05",
+        "Cycle":"2"
       }
-    ]
+       ],
     }
   },
   methods:{
@@ -150,8 +94,29 @@ var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 var dateTime = date+' '+time;
 return dateTime;
+    },
+    getVariant:function(status) {
+    switch (status) {
+      case 1:
+        return 'success'
+      case 2:
+        return 'danger'
+      default:
+        return 'active'
     }
   }
+  },
+  computed: {
+  formartedItems () {
+    console.log("test");
+    if (!this.users) return [console.log("kebab")]
+    return this.users.map(item => {
+      console.log(item);
+      item  = this.getVariant(item.Orderid)
+      return item
+    })
+  }
+}
 }
 </script>
 <style lang="stylus">
