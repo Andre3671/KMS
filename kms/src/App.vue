@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-   <vs-navbar color="#7d33ff" text-white square center-collapsed v-model="active">
+   <vs-navbar color="#3252a8" text-white square center-collapsed v-model="active">
         <template #left>
           <!-- logo -->
         </template>

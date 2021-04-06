@@ -5,6 +5,7 @@
   <vs-input v-model="value" type="text" label="Order:" />
   <vs-input v-model="value" type="text" label="Customer:" />
   <vs-input v-model="value" type="date" label="Expiration:" />
+  <vs-button>Create</vs-button>
 </div>
 </template>
 

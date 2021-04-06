@@ -39,8 +39,8 @@
                   <h3>Order information</h3>
                   <p>Hull number: {{tr.Hullnr}}</p>
                   <p>Sales Id: {{tr.SalesId}}</p>
-                  <p>Order: {{tr.Order}}</p>
-                  <p>Hull number: {{tr.Cycle}}</p>
+                  <p>Contents of the order: {{tr.Order}}</p>
+                  <p>Cycle: {{tr.Cycle}}</p>
                 </div>
                 <div style="float:right">
                   <vs-button flat icon>
@@ -68,18 +68,18 @@ export default {
        users:[
       {
         "Orderid": 1,
-        "Customer": "Leanne Graham",
-        "Hullnr": "Bret",
-        "SalesId": "Sincere@april.biz",
+        "Customer": "Customboats AB",
+        "Hullnr": "B2H4A",
+        "SalesId": "12",
         "Order": "hildegard.org",
         "Expiration":"2021-08-05",
         "Cycle":"2"
       },
       {
         "Orderid": 2,
-        "Customer": "Ervin Howell",
-        "Hullnr": "Antonette",
-        "SalesId": "Shanna@melissa.tv",
+        "Customer": "Ghannan boats LTD",
+        "Hullnr": "ANT4Y",
+        "SalesId": "13",
         "Order": "anastasia.net",
         "Expiration":"2021-08-05",
         "Cycle":"2"
