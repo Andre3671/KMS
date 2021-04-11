@@ -7,13 +7,13 @@
         <vs-navbar-item :active="active == 'guide'" @click="Routerpush('/')" id="guide">
           All orders
         </vs-navbar-item>
-        <vs-navbar-item :active="active == 'docs'" @click="Routerpush('/myorders')" id="docs">
+        <vs-navbar-item v-if="loggedin" :active="active == 'docs'" @click="Routerpush('/myorders')" id="docs">
          My orders
         </vs-navbar-item>
-        <vs-navbar-item :active="active == 'components'" @click="Routerpush('/addorder')" id="components">
+        <vs-navbar-item v-if="loggedin" :active="active == 'components'" @click="Routerpush('/addorder')" id="components">
           Add order
         </vs-navbar-item>
-        <vs-navbar-item :active="active == 'license'" @click="Routerpush('/import')" id="license">
+        <vs-navbar-item v-if="loggedin" :active="active == 'license'" @click="Routerpush('/import')" id="license">
           Import order
         </vs-navbar-item>
         <template #right>
@@ -50,7 +50,7 @@
 
         <template #footer>
           <div class="footer-dialog">
-            <vs-button block>
+            <vs-button @click="LogIn()" block>
               Sign In
             </vs-button>
 
@@ -69,11 +69,15 @@
       popup: false,
       email: '',
       password: '',
-      remember: false
+      remember: false,
+      loggedin:false
     }),
      methods:{
     Routerpush: function(nav){
       this.$router.push(nav);
+    },
+    LogIn: function() {
+      this.loggedin = true;
     }
     }
   }

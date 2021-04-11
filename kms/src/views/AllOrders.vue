@@ -7,13 +7,22 @@
         <template #thead>
           <vs-tr>
             <vs-th>
-              OrderId
+              ORDER NO.
             </vs-th>
             <vs-th>
-              Customer
+              HULL NO.
             </vs-th>
             <vs-th>
-              Expiration
+              VESSEL´S NAME
+            </vs-th>
+            <vs-th>
+              Shipyard
+            </vs-th>
+            <vs-th>
+              Owner
+            </vs-th>
+            <vs-th>
+              Delivery date
             </vs-th>
           </vs-tr>
         </template>
@@ -27,7 +36,16 @@
               {{ tr.Orderid }}
             </vs-td>
             <vs-td>
-            {{ tr.Customer }}
+            {{ tr.Hullnr }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Vessel_name }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Shipyard }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Owner }}
             </vs-td>
             <vs-td>
             {{ tr.Expiration }}
@@ -37,9 +55,15 @@
               <div class="con-content">
                 <div>
                   <h3>Order information</h3>
+                  <p>Sales ID: {{tr.SalesId}}</p>
                   <p>Hull number: {{tr.Hullnr}}</p>
                   <p>Sales Id: {{tr.SalesId}}</p>
-                  <p>Contents of the order: {{tr.Order}}</p>
+                  <p>PRODUCT DELIVERED:</p><b></b>
+                  <ul>
+                  <li v-for="part in tr.Parts" :key="part.spec">
+                  <p>{{part.name}}: {{part.spec}}</p>
+                  </li>
+                  </ul>
                   <p>Cycle: {{tr.Cycle}}</p>
                 </div>
                 <div style="float:right">
@@ -68,18 +92,42 @@ export default {
        users:[
       {
         "Orderid": 1,
-        "Customer": "Customboats AB",
-        "Hullnr": "B2H4A",
-        "SalesId": "12",
+        "Vessel_name": "KNOCK NALLING",
+        "Shipyard":"UDDEVALLA SHIPYARD",
+        "Owner":"JENSEN",
+        "Hullnr": "NB708",
+        "Parts":{
+          "part1":{
+            "name":"Slang",
+            "spec":"lång",
+          },
+          "part2":{
+            "name":"Slang",
+            "spec":"kort",
+          },
+        },
+        "SalesId": 12,
         "Order": "hildegard.org",
         "Expiration":"2021-08-05",
         "Cycle":"2"
       },
       {
         "Orderid": 2,
-        "Customer": "Ghannan boats LTD",
-        "Hullnr": "ANT4Y",
-        "SalesId": "13",
+        "Vessel_name": "SYRA",
+        "Shipyard":"UDDEVALLA SHIPYARD",
+        "Owner":"JENSEN",
+        "Hullnr": "NB790",
+            "Parts":{
+          "part1":{
+            "name":"Mutter",
+            "spec":"Liten",
+          },
+          "part2":{
+            "name":"Svänghjul",
+            "spec":"3m diameter",
+          },
+        },
+        "SalesId": 13,
         "Order": "anastasia.net",
         "Expiration":"2021-08-05",
         "Cycle":"2"
@@ -108,10 +156,8 @@ return dateTime;
   },
   computed: {
   formartedItems () {
-    console.log("test");
-    if (!this.users) return [console.log("kebab")]
+    if (!this.users) return []
     return this.users.map(item => {
-      console.log(item);
       item  = this.getVariant(item.Orderid)
       return item
     })
