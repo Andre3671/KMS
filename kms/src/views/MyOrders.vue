@@ -1,64 +1,85 @@
 <template>
-  <div class="about">
-    <h1>My orders</h1>
-<vs-table :data="users">
-      <template slot="thead">
-        <vs-th>
-          Email
-        </vs-th>
-        <vs-th>
-          Name
-        </vs-th>
-        <vs-th>
-          Nro1
-        </vs-th>
-        <vs-th>
-          Nro2
-        </vs-th>
-      </template>
+<div class="home">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <h1> My orders</h1>
+<div class="center">
+      <vs-table >
+        <template #thead>
+          <vs-tr>
+            <vs-th>
+              ORDER NO.
+            </vs-th>
+            <vs-th>
+              HULL NO.
+            </vs-th>
+            <vs-th>
+              VESSEL´S NAME
+            </vs-th>
+            <vs-th>
+              Shipyard
+            </vs-th>
+            <vs-th>
+              Owner
+            </vs-th>
+            <vs-th>
+              Delivery date
+            </vs-th>
+          </vs-tr>
+        </template>
+        <template #tbody>
+          <vs-tr
+          :items="formartedItems"
+            :key="i"
+            v-for="(tr, i) in users"
+          >
+            <vs-td>
+              {{ tr.Orderid }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Hullnr }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Vessel_name }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Shipyard }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Owner }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Expiration }}
+            </vs-td>
 
-      <template slot-scope="{data}">
-        <vs-tr :key="indextr" v-for="(tr, indextr) in data" >
-          <vs-td :data="tr.email">
-            {{tr.email}}
-
-            <template slot="edit">
-              <vs-input v-model="tr.email" class="inputx" placeholder="Email"/>
+            <template #expand>
+              <div class="con-content">
+                <div>
+                  <h3>Order information</h3>
+                  <p>Sales ID: {{tr.SalesId}}</p>
+                  <p>Hull number: {{tr.Hullnr}}</p>
+                  <p>Sales Id: {{tr.SalesId}}</p>
+                  <p>PRODUCT DELIVERED:</p><b></b>
+                  <ul>
+                  <li v-for="part in tr.Parts" :key="part.spec">
+                  <p>{{part.name}}: {{part.spec}}</p>
+                  </li>
+                  </ul>
+                  <p>Cycle: {{tr.Cycle}}</p>
+                </div>
+                <div style="float:right">
+                  <vs-button flat icon>
+                    Send Email
+                  </vs-button>
+                  <vs-button border danger>
+                    Reset Expiration
+                  </vs-button>
+                </div>
+              </div>
             </template>
-          </vs-td>
-
-          <vs-td :data="tr.username">
-            {{tr.username}}
-
-            <template slot="edit">
-              <vs-select
-                label="Users"
-                v-model="tr.username"
-                >
-                <vs-select-item :key="index" :vs-value="item.name" :vs-text="item.name" v-for="(item,index) in users" />
-              </vs-select>
-            </template>
-          </vs-td>
-
-          <vs-td :data="tr.id">
-            {{tr.id}}
-
-            <template slot="edit">
-              <vs-input-number v-model="tr.id"/>
-            </template>
-          </vs-td>
-
-          <vs-td :data="tr.id">
-            {{tr.id}}
-
-            <template slot="edit">
-              <vs-slider :max="20" v-model="tr.id"/>
-            </template>
-          </vs-td>
-
-        </vs-tr>
-      </template>
-    </vs-table>
+          </vs-tr>
+        </template>
+      </vs-table>
+    </div>
   </div>
 </template>
 
@@ -70,74 +91,46 @@ export default {
     return {
        users:[
       {
-        "id": 1,
-        "name": "Leanne Graham",
-        "username": "Bret",
-        "email": "Sincere@april.biz",
-        "website": "hildegard.org",
+        "Orderid": 1,
+        "Vessel_name": "KNOCK NALLING",
+        "Shipyard":"UDDEVALLA SHIPYARD",
+        "Owner":"JENSEN",
+        "Hullnr": "NB708",
+        "Parts":{
+          "part1":{
+            "name":"Slang",
+            "spec":"lång",
+          },
+          "part2":{
+            "name":"Slang",
+            "spec":"kort",
+          },
+        },
+        "SalesId": 12,
+        "Order": "hildegard.org",
+        "Expiration":"2021-08-05",
+        "Cycle":"2"
       },
       {
-        "id": 2,
-        "name": "Ervin Howell",
-        "username": "Antonette",
-        "email": "Shanna@melissa.tv",
-        "website": "anastasia.net",
-      },
-      {
-        "id": 3,
-        "name": "Clementine Bauch",
-        "username": "Samantha",
-        "email": "Nathan@yesenia.net",
-        "website": "ramiro.info",
-      },
-      {
-        "id": 4,
-        "name": "Patricia Lebsack",
-        "username": "Karianne",
-        "email": "Julianne.OConner@kory.org",
-        "website": "kale.biz",
-      },
-      {
-        "id": 5,
-        "name": "Chelsey Dietrich",
-        "username": "Kamren",
-        "email": "Lucio_Hettinger@annie.ca",
-        "website": "demarco.info",
-      },
-      {
-        "id": 6,
-        "name": "Mrs. Dennis Schulist",
-        "username": "Leopoldo_Corkery",
-        "email": "Karley_Dach@jasper.info",
-        "website": "ola.org",
-      },
-      {
-        "id": 7,
-        "name": "Kurtis Weissnat",
-        "username": "Elwyn.Skiles",
-        "email": "Telly.Hoeger@billy.biz",
-        "website": "elvis.io",
-      },
-      {
-        "id": 8,
-        "name": "Nicholas Runolfsdottir V",
-        "username": "Maxime_Nienow",
-        "email": "Sherwood@rosamond.me",
-        "website": "jacynthe.com",
-      },
-      {
-        "id": 9,
-        "name": "Glenna Reichert",
-        "username": "Delphine",
-        "email": "Chaim_McDermott@dana.io",
-        "website": "conrad.com",
-      },
-      {
-        "id": 10,
-        "name": "Clementina DuBuque",
-        "username": "Moriah.Stanton",
-        "email": "Rey.Padberg@karina.biz",
-        "website": "ambrose.net",
+        "Orderid": 2,
+        "Vessel_name": "SYRA",
+        "Shipyard":"UDDEVALLA SHIPYARD",
+        "Owner":"JENSEN",
+        "Hullnr": "NB790",
+            "Parts":{
+          "part1":{
+            "name":"Mutter",
+            "spec":"Liten",
+          },
+          "part2":{
+            "name":"Svänghjul",
+            "spec":"3m diameter",
+          },
+        },
+        "SalesId": 13,
+        "Order": "anastasia.net",
+        "Expiration":"2021-08-05",
+        "Cycle":"2"
       }
     ]
     }

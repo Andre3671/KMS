@@ -1,6 +1,6 @@
 <template>
 <div>
-  <h1>Import Order</h1>
+  <h1>Import Order/Orders</h1>
   <input type="file">
   <vs-button color="#3252a8"  v-on:click="uploadsuccess =! uploadsuccess">Ladda upp</vs-button>
 
