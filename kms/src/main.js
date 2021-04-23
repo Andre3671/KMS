@@ -5,12 +5,12 @@ import Vuesax from 'vuesax'
 Vue.config.productionTip = false
 import 'vuesax/dist/vuesax.css' //Vuesax styles
 import router from './router'
-import Vuex from 'vuex'
+import store from './store/store.js'
 Vue.use(Vuesax, {
   // options here
 })
 new Vue({
   router,
-  Vuex,
+  store,
   render: h => h(App)
 }).$mount('#app')
