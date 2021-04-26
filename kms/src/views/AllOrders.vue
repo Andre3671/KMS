@@ -92,7 +92,7 @@ export default {
     }
   },
   mounted: function () {
-    console.log(this.$store.state.Orders);
+    this.users =this.$store.state.Orders;
   },
 
 
