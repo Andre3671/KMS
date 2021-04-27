@@ -4,39 +4,41 @@
     <h1> All orders</h1>
 <div class="center">
       <vs-table >
+        <template #header>
+          <vs-input v-model="search" border placeholder="Search" />
+        </template>
         <template #thead>
           <vs-tr>
-            <vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'OrderId')">
               ORDER NO.
             </vs-th>
-            <vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'HullNr')">
               HULL NO.
             </vs-th>
-            <vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'Vessel_name')">
               VESSEL´S NAME
             </vs-th>
-            <vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'Shipyard')">
               Shipyard
             </vs-th>
-            <vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'Owner')">
               Owner
             </vs-th>
-            <vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'DeliveryDate')">
               Delivery date
             </vs-th>
           </vs-tr>
         </template>
         <template #tbody>
           <vs-tr
-          :items="formartedItems"
             :key="i"
-            v-for="(tr, i) in users"
+            v-for="(tr, i) in  $vs.getSearch($store.state.Orders, search)"
           >
             <vs-td>
-              {{ tr.Orderid }}
+              {{ tr.OrderId }}
             </vs-td>
             <vs-td>
-            {{ tr.Hullnr }}
+            {{ tr.HullNr }}
             </vs-td>
             <vs-td>
             {{ tr.Vessel_name }}
@@ -48,7 +50,7 @@
             {{ tr.Owner }}
             </vs-td>
             <vs-td>
-            {{ tr.Expiration }}
+            {{ tr.DeliveryDate }}
             </vs-td>
 
             <template #expand>
@@ -60,8 +62,8 @@
                   <p>Sales Id: {{tr.SalesId}}</p>
                   <p>PRODUCT DELIVERED:</p><b></b>
                   <ul>
-                  <li v-for="part in tr.Parts" :key="part.spec">
-                  <p>{{part.name}}: {{part.spec}}</p>
+                  <li v-for="part in tr.PartsOrdered" :key="part.PartId">
+                  <p>{{part.Name}}: {{part.Spec}}</p>
                   </li>
                   </ul>
                   <p>Cycle: {{tr.Cycle}}</p>
@@ -88,11 +90,13 @@ export default {
   name: 'AllOrders',
   data() {
     return {
-       users:[],
+         search: '',
+       users: this.$store.state.Orders,
     }
   },
-  mounted: function () {
-    this.users =this.$store.state.Orders;
+  mounted: async function () {
+   await this.$store.commit("GetOrders");
+    console.log(this.users)
   },
 
 

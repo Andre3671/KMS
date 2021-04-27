@@ -51,11 +51,15 @@ C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\roslyn\vbc.rsp
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\roslyn\VBCSCompiler.exe
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Antlr3.Runtime.dll
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\EntityFramework.dll
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\EntityFramework.SqlServer.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Newtonsoft.Json.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Net.Http.Formatting.dll
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Cors.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Helpers.dll
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Http.Cors.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Http.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Http.WebHost.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Mvc.dll
@@ -65,6 +69,9 @@ C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.WebPages.Deployment.
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.WebPages.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.WebPages.Razor.dll
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\WebGrease.dll
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\EntityFramework.xml
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\EntityFramework.SqlServer.xml
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Http.Cors.xml
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Newtonsoft.Json.xml
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Net.Http.Formatting.xml
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.Helpers.xml
@@ -79,6 +86,10 @@ C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\System.Web.WebPages.Razor.xml
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Antlr3.Runtime.pdb
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.csprojAssemblyReference.cache
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.Migrations.first.resources
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.Migrations.InitialBaseline.resources
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.Migrations.TableMigration.resources
+C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.csproj.GenerateResource.cache
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.csproj.CoreCompileInputs.cache
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.csproj.CopyComplete
 C:\Users\Andre\Desktop\KMS\Api\KMSApi\KMSApi\obj\Debug\KMSApi.dll

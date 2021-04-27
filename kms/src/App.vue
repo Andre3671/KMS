@@ -7,9 +7,9 @@
         <vs-navbar-item :active="active == 'guide'" @click="Routerpush('/')" id="guide">
           All orders
         </vs-navbar-item>
-        <vs-navbar-item v-if="loggedin" :active="active == 'docs'" @click="Routerpush('/myorders')" id="docs">
+        <!-- <vs-navbar-item v-if="loggedin" :active="active == 'docs'" @click="Routerpush('/myorders')" id="docs">
          My orders
-        </vs-navbar-item>
+        </vs-navbar-item> -->
         <vs-navbar-item v-if="loggedin" :active="active == 'components'" @click="Routerpush('/addorder')" id="components">
           Add order
         </vs-navbar-item>
