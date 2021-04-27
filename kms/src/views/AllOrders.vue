@@ -4,43 +4,69 @@
     <h1> All orders</h1>
 <div class="center">
       <vs-table >
+        <template #header>
+          <vs-input v-model="search" border placeholder="Search" />
+        </template>
         <template #thead>
           <vs-tr>
-            <vs-th>
-              OrderId
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'OrderId')">
+              ORDER NO.
             </vs-th>
-            <vs-th>
-              Customer
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'HullNr')">
+              HULL NO.
             </vs-th>
-            <vs-th>
-              Expiration
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'Vessel_name')">
+              VESSEL´S NAME
+            </vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'Shipyard')">
+              Shipyard
+            </vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'Owner')">
+              Owner
+            </vs-th>
+            <vs-th sort @click="$store.state.Orders = $vs.sortData($event ,$store.state.Orders, 'DeliveryDate')">
+              Delivery date
             </vs-th>
           </vs-tr>
         </template>
         <template #tbody>
           <vs-tr
-          :items="formartedItems"
             :key="i"
-            v-for="(tr, i) in users"
+            v-for="(tr, i) in  $vs.getSearch($store.state.Orders, search)"
           >
             <vs-td>
-              {{ tr.Orderid }}
+              {{ tr.OrderId }}
             </vs-td>
             <vs-td>
-            {{ tr.Customer }}
+            {{ tr.HullNr }}
             </vs-td>
             <vs-td>
-            {{ tr.Expiration }}
+            {{ tr.Vessel_name }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Shipyard }}
+            </vs-td>
+            <vs-td>
+            {{ tr.Owner }}
+            </vs-td>
+            <vs-td>
+            {{ tr.DeliveryDate }}
             </vs-td>
 
             <template #expand>
               <div class="con-content">
                 <div>
                   <h3>Order information</h3>
+                  <p>Sales ID: {{tr.SalesId}}</p>
                   <p>Hull number: {{tr.Hullnr}}</p>
                   <p>Sales Id: {{tr.SalesId}}</p>
-                  <p>Order: {{tr.Order}}</p>
-                  <p>Hull number: {{tr.Cycle}}</p>
+                  <p>PRODUCT DELIVERED:</p><b></b>
+                  <ul>
+                  <li v-for="part in tr.PartsOrdered" :key="part.PartId">
+                  <p>{{part.Name}}: {{part.Spec}}</p>
+                  </li>
+                  </ul>
+                  <p>Cycle: {{tr.Cycle}}</p>
                 </div>
                 <div style="float:right">
                   <vs-button flat icon>
@@ -60,63 +86,20 @@
 </template>
 
 <script>
-
 export default {
   name: 'AllOrders',
   data() {
     return {
-       users:[
-      {
-        "Orderid": 1,
-        "Customer": "Leanne Graham",
-        "Hullnr": "Bret",
-        "SalesId": "Sincere@april.biz",
-        "Order": "hildegard.org",
-        "Expiration":"2021-08-05",
-        "Cycle":"2"
-      },
-      {
-        "Orderid": 2,
-        "Customer": "Ervin Howell",
-        "Hullnr": "Antonette",
-        "SalesId": "Shanna@melissa.tv",
-        "Order": "anastasia.net",
-        "Expiration":"2021-08-05",
-        "Cycle":"2"
-      }
-       ],
+         search: '',
+       users: this.$store.state.Orders,
     }
   },
-  methods:{
-    GetDate:function() {
-var today = new Date();
-var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-var dateTime = date+' '+time;
-return dateTime;
-    },
-    getVariant:function(status) {
-    switch (status) {
-      case 1:
-        return 'success'
-      case 2:
-        return 'danger'
-      default:
-        return 'active'
-    }
-  }
+  mounted: async function () {
+   await this.$store.commit("GetOrders");
+    console.log(this.users)
   },
-  computed: {
-  formartedItems () {
-    console.log("test");
-    if (!this.users) return [console.log("kebab")]
-    return this.users.map(item => {
-      console.log(item);
-      item  = this.getVariant(item.Orderid)
-      return item
-    })
-  }
-}
+
+
 }
 </script>
 <style lang="stylus">
