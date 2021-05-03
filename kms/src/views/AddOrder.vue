@@ -1,7 +1,10 @@
 <template>
 <div>
   <h1>Create Order</h1>
-  <vs-input v-model="Order.OrderId" type="text"  label="Order number:" />
+   <div class="center grid">
+        <vs-row>
+      <vs-col  vs-type="flex" vs-justify="center" vs-align="center" w="3">
+          <vs-input v-model="Order.OrderId" type="text"  label="Order number:" />
     <vs-input v-model="Order.HullNr" type="text" label="Hullnr:" />
   <vs-input v-model="Order.Vessel_name" type="text" label="Vessel name:" />
   <vs-input v-model="Order.Shipyard" type="text" label="Shipyard:" />
@@ -16,19 +19,57 @@
           2 Years
         </vs-option>
       </vs-select>
-  <vs-button @click="active=!active">Create</vs-button>
-<Dialogtest :PartList="Order" :Parts="Parts" :active="true" > </Dialogtest>
+      </vs-col>
+      <vs-col  vs-type="flex" vs-justify="center" vs-align="center" w="4">
+        <h3>Parts:</h3>
+<vs-table>
+    <template #thead>
+      <vs-tr>
+        <vs-th>
+          Partname
+        </vs-th>
+        <vs-th>
+          Specifications
+        </vs-th>
+      </vs-tr>
+    </template>
+    <template #tbody>
+      <vs-tr
+        :key="i"
+        v-for="(tr, i) in Order.PartsOrdered"
+        :data="tr"
+      >
+        <vs-td>
+          {{ tr.Name }}
+        </vs-td>
+        <vs-td>
+         {{ tr.Spec }}
+        </vs-td>
+      </vs-tr>
+    </template>
+  </vs-table>
+      </vs-col>
+    </vs-row>
 
+  <vs-button @click="active=!active">Add Part</vs-button>
+  <vs-button @click="AddOrder()">Add order</vs-button>
+   </div>
+<vs-dialog blur v-model="active" >
+     <vs-input v-model="Part.Name" label="Part Name"></vs-input>
+     <p for="spec">Specifications</p>
+     <textarea v-model="Part.Spec" id="spec"></textarea>
+    <vs-button @click="AddPart()">Add</vs-button>
+</vs-dialog>
 </div>
 </template>
 
 <script>
-import Dialogtest from '../Components/AddPartDialog'
 export default {
   components:{
-    Dialogtest
+
   },
 data:() => ({
+  active:false,
   Order:{
         OrderId: '',
         HullNr: '',
@@ -38,17 +79,29 @@ data:() => ({
         Buyer: '',
         DeliveryDate: '',
         Cycle: "",
-        Parts:[],
+        PartsOrdered:[],
+  },
+  Part:{
+    Name:"",
+    Spec:"",
   }
       }),
       methods:{
         AddOrder:function(){
-          this.$store.commit("PostOrder",this.Part)
+          this.$store.commit("PostOrder",this.Order)
+        },
+        AddPart:function(){
+          this.Order.PartsOrdered.push(this.Part);
+          console.log(this.Order.PartsOrdered);
         }
       }
 }
 </script>
 
 <style>
-
+#spec{
+      width: 359px;
+    height: 271px;
+    resize: none;
+}
 </style>
