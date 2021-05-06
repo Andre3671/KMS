@@ -4,7 +4,7 @@
    <div class="center grid">
         <vs-row>
       <vs-col  vs-type="flex" vs-justify="center" vs-align="center" w="3">
-          <vs-input v-model="Order.OrderId" type="text"  label="Order number:" />
+       <!--   <vs-input v-model="Order.OrderId" type="text"  label="Order number:" />-->
     <vs-input v-model="Order.HullNr" type="text" label="Hullnr:" />
   <vs-input v-model="Order.Vessel_name" type="text" label="Vessel name:" />
   <vs-input v-model="Order.Shipyard" type="text" label="Shipyard:" />
@@ -71,7 +71,6 @@ export default {
 data:() => ({
   active:false,
   Order:{
-        OrderId: '',
         HullNr: '',
         Vessel_name: '',
         Shipyard: '',
@@ -88,10 +87,12 @@ data:() => ({
       }),
       methods:{
         AddOrder:function(){
+          console.log(JSON.stringify(this.Order))
           this.$store.commit("PostOrder",this.Order)
         },
         AddPart:function(){
           this.Order.PartsOrdered.push(this.Part);
+          this.Part = {Name:"",Spec:"",}
           console.log(this.Order.PartsOrdered);
         }
       }

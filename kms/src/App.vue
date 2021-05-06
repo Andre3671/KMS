@@ -10,14 +10,14 @@
         <!-- <vs-navbar-item v-if="loggedin" :active="active == 'docs'" @click="Routerpush('/myorders')" id="docs">
          My orders
         </vs-navbar-item> -->
-        <vs-navbar-item v-if="loggedin" :active="active == 'components'" @click="Routerpush('/addorder')" id="components">
+        <vs-navbar-item :active="active == 'components'" @click="Routerpush('/addorder')" id="components">
           Add order
         </vs-navbar-item>
-        <vs-navbar-item v-if="loggedin" :active="active == 'license'" @click="Routerpush('/import')" id="license">
+        <vs-navbar-item  :active="active == 'license'" @click="Routerpush('/import')" id="license">
           Import order
         </vs-navbar-item>
         <template #right>
-          <vs-button color="#fff" flat @click="popup=!popup" >Login</vs-button>
+          <!-- <vs-button color="#fff" flat @click="popup=!popup" >Login</vs-button> -->
         </template>
       </vs-navbar>
   <div>
