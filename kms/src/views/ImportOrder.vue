@@ -4,12 +4,12 @@
   <input type="file" @change="uploadfilesave" ref="files"  id="file">
   <vs-button color="#3252a8" @click="upload()">Ladda upp</vs-button>
 
-  <vs-alert v-if="uploadsuccess" success>
+  <!-- <vs-alert v-if="uploadsuccess" success>
       <template #title>
         Orders Uploaded
       </template>
      All the orders were successfully upoaded.
-    </vs-alert> 
+    </vs-alert>  -->
 </div>
 </template>
 
@@ -33,6 +33,11 @@ upload: function() {
   const fd = new FormData();
   fd.append('file',this.files[0])
    this.$store.commit("UploadFile",fd)
+     this.$vs.notification({
+            color:"success",
+            title: 'Imported!',
+            text: `The document was succesfully imported`
+          })
 },
 },
 }

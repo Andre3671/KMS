@@ -88,7 +88,13 @@ data:() => ({
       methods:{
         AddOrder:function(){
           console.log(JSON.stringify(this.Order))
-          this.$store.commit("PostOrder",this.Order)
+         var result = this.$store.commit("PostOrder",this.Order)
+          this.$vs.notification({
+            color:"success",
+            title: 'Saved!',
+            text: `The order was succesfully saved`
+          })
+         console.log(result)
         },
         AddPart:function(){
           this.Order.PartsOrdered.push(this.Part);

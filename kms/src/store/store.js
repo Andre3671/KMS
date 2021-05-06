@@ -18,7 +18,7 @@ export default new Vuex.Store({
     },
     async PostOrder(state, payload) {
       console.log(JSON.stringify(payload));
-      await fetch("https://localhost:44305/Orders/", {
+     var response = await fetch("https://localhost:44305/Orders/", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors',
         headers: {
@@ -26,12 +26,12 @@ export default new Vuex.Store({
 
         },
         body:JSON.stringify(payload)
-    });
+    }).then(response => response)
+     return(response)
       
     },
     async UploadFile(state, payload) {
       axios.post('https://localhost:44305/api/Orders/file/', payload).then(res => {
-
       }
       )
     }
