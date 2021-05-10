@@ -4,21 +4,21 @@
    <div class="center grid">
         <vs-row>
       <vs-col  vs-type="flex" vs-justify="center" vs-align="center" w="3">
-       <!--   <vs-input v-model="Order.OrderId" type="text"  label="Order number:" />-->
+       <vs-input v-model="Order.OrderNumber" type="text"  label="Order number:" />
     <vs-input v-model="Order.HullNr" type="text" label="Hullnr:" />
   <vs-input v-model="Order.Vessel_name" type="text" label="Vessel name:" />
   <vs-input v-model="Order.Shipyard" type="text" label="Shipyard:" />
   <vs-input v-model="Order.Owner" type="text" label="Owner:" />
     <vs-input v-model="Order.Buyer" type="text" label="Buyer:" />
 <vs-input v-model="Order.DeliveryDate" type="date" label="DeliveryDate" />
-    <vs-select placeholder="Cycle" label="Cycle:" v-model="Order.Cycle">
+    <!-- <vs-select placeholder="Cycle" label="Cycle:" v-model="Order.Cycle">
         <vs-option label="5 Years" value="5">
           5 Years
         </vs-option>
         <vs-option label="2 Years" value="2">
           2 Years
         </vs-option>
-      </vs-select>
+      </vs-select> -->
       </vs-col>
       <vs-col  vs-type="flex" vs-justify="center" vs-align="center" w="4">
         <h3>Parts:</h3>
@@ -71,6 +71,7 @@ export default {
 data:() => ({
   active:false,
   Order:{
+    OrderNumber:'',
         HullNr: '',
         Vessel_name: '',
         Shipyard: '',

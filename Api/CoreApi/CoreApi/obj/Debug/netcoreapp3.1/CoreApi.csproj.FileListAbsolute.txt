@@ -146,3 +146,4 @@ C:\Users\Andre\Desktop\KMS\Api\CoreApi\CoreApi\obj\Debug\netcoreapp3.1\Razor\Vie
 C:\Users\Andre\Desktop\KMS\Api\CoreApi\CoreApi\obj\Debug\netcoreapp3.1\CoreApi.RazorTargetAssemblyInfo.cs
 C:\Users\Andre\Desktop\KMS\Api\CoreApi\CoreApi\obj\Debug\netcoreapp3.1\CoreApi.Views.pdb
 C:\Users\Andre\Desktop\KMS\Api\CoreApi\CoreApi\bin\Debug\netcoreapp3.1\RestSharp.dll
+C:\Users\Andre\Desktop\KMS\Api\CoreApi\CoreApi\obj\Debug\netcoreapp3.1\CoreApi.csprojAssemblyReference.cache

@@ -15,6 +15,7 @@ export default new Vuex.Store({
       let response = await fetch('https://localhost:44305/Orders');
       let data = await response.json();
       data.forEach(element => {
+        if(element.deliveryDate != null)
         element.deliveryDate = element.deliveryDate.split('T')[0];
       });
       this.state.Orders = data;

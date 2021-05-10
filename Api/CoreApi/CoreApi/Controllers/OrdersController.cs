@@ -16,6 +16,7 @@ using System.Net;
 using RestSharp.Authenticators;
 using RestSharp;
 using System.Text;
+using System.Globalization;
 
 namespace CoreApi.Controllers
 {
@@ -62,101 +63,143 @@ namespace CoreApi.Controllers
             List<Order> orders = new List<Order>();
             using (var reader = new StreamReader(file.OpenReadStream()))
             {
+                //change depending on header row in file.
                 string[] lines = new string[2];
-                for (int i = 0; i <= lines.Length; i++)
+                for (int x = 0; x <= lines.Length; x++)
                 {
-                    if(await reader.ReadLineAsync() != null)
+                    if (await reader.ReadLineAsync() != null)
                     {
-                        lines[i] = await reader.ReadLineAsync();
+                        lines[x] = await reader.ReadLineAsync();
                     }
-                    if(lines.Length == 2)
+                    if (lines.Length == 2)
                     {
                         break;
                     }
-                    
+
                 }
-                
-                while(reader.Peek() >= 0) {
+                string read = "";
+                string CurrentOrder = "";
+                string[] data = { };
+                int i = 0;
+                while (reader.Peek() >= 0)
+                {
                     List<Part> PartsList = new List<Part>();
                     string date = "";
                     bool test = true;
-                string CurrentOrder = "";
-                string check = "";
-                string OwnerList = "";
-                string VesselList = "";
-                string ShipyardList = "";
-                string HullList = "";
-                string BuyerList = "";
-                while (reader.Peek() >= 0)
-                {
 
-                    string read = await reader.ReadLineAsync();
-                    string[] data = read.Split(";");
-                    CurrentOrder = data[0];
-                    if (test && (CurrentOrder != "" || CurrentOrder != "."))
+                    string previousOrder = "";
+                    string previousPart = "";
+                    string CurrentPart = "";
+                    string check = "";
+                    string OrderNumberList = "";
+                    string OwnerList = "";
+                    string VesselList = "";
+                    string ShipyardList = "";
+                    string HullList = "";
+                    string BuyerList = "";
+                    string SpecList = "";
+                    Part TempPart = new Part();
+                    while (reader.Peek() >= 0)
                     {
-                        check = "temp";
-                        test = false;
-                    }
-                    else if((CurrentOrder == "" || CurrentOrder == ".") && test==false)
-                    {
-                        check = "temp2";
-                    }else if(CurrentOrder != "" || CurrentOrder != ".")
-                    {
-                        break;
-                    }
+                        read = await reader.ReadLineAsync();
 
-                    if (data[2] != "" && data[2] != ".")
-                    {
-                        VesselList += data[2] + "|";
-                    }
-                    if (data[3] != "" && data[3] != ".")
-                    {
-                        ShipyardList += data[3] + "|";
-                    }
-                    if (data[4] != "" && data[4] != ".")
-                    {
-                        OwnerList += data[4] + "|";
-                    }
-                    if (data[1] != "" && data[1] != ".")
-                    {
-                        HullList += data[1] + "|";
-                    }
-                    if (data[8] != "" && data[8] != ".")
-                    {
-                        BuyerList += data[8] + "|";
-                    }
-                        Part TempPart = new Part
+                        data = read.Split(";");
+                        CurrentOrder = data[0];
+
+                        if ((CurrentOrder != "" && CurrentOrder != ".") && test)
                         {
-                            Name = data[9],
-                            Spec = data[10],
-                        };
-                        PartsList.Add(TempPart);
+                            previousOrder = CurrentOrder;
+                            test = false;
+                        }
+                        else if ((CurrentOrder != "" && CurrentOrder != ".") && CurrentOrder != previousOrder)
+                        {
+                            break;
+                        }
+
+
+                        if (data[0] != "" && data[0] != ".")
+                        {
+                            OrderNumberList += data[0] + "|";
+                        }
+
+                        if (data[2] != "" && data[2] != ".")
+                        {
+                            VesselList += data[2] + "|";
+                        }
+                        if (data[3] != "" && data[3] != ".")
+                        {
+                            ShipyardList += data[3] + "|";
+                        }
+                        if (data[4] != "" && data[4] != ".")
+                        {
+                            OwnerList += data[4] + "|";
+                        }
+                        if (data[1] != "" && data[1] != ".")
+                        {
+                            HullList += data[1] + "|";
+                        }
+                        if (data[8] != "" && data[8] != ".")
+                        {
+                            BuyerList += data[8] + "|";
+                        }
+
+
+
+                        string name = "";
+                        string spec = "";
+                        if (data[9] != "" && data[9] != ".")
+                        {
+                            name = data[9];
+                            if (CurrentPart != data[9])
+                            {
+                                CurrentPart = data[9];
+                            }
+
+                        }
+
+                        if (data[10] != "" && data[10] != ".")
+                        {
+                            SpecList += data[10] + " ";
+                        }
+
+                        if (SpecList != "")
+                        {
+                            TempPart.Spec = SpecList;
+                        }
+
+                        if (CurrentPart != previousPart)
+                        {
+                            TempPart.Name = name;
+                            PartsList.Add(TempPart);
+                            TempPart = new Part();
+                            previousPart = CurrentPart;
+                            SpecList = "";
+                        }
+
                         if (data[11] != "" && data[11] != ".")
                         {
                             date = data[11];
                         }
                         else
                         {
-                            date = "";
-                        }
-                        
 
-                }
-                test = true;
+                        }
+
+                    }
+                    test = true;
                     Order temp = new Order();
                     if (date == "" || date == "CANCELLED" || date == "NO RECORD" || date == ".")
                     {
-                       temp = new Order
+                        temp = new Order
                         {
-                            //  OrderId = int.Parse(data[0]),
+                            OrderNumber = OrderNumberList,
                             Vessel_name = VesselList,
                             Shipyard = ShipyardList,
                             Owner = OwnerList,
                             HullNr = HullList,
                             // SalesId = int.Parse(data[5]),
                             Buyer = BuyerList,
-                            DeliveryDate = DateTime.MinValue,
+                            DeliveryDate = null,
                             PartsOrdered = PartsList
 
 
@@ -164,34 +207,49 @@ namespace CoreApi.Controllers
                     }
                     else
                     {
-                         temp = new Order
+                        DateTime? dt1 = new DateTime();
+                        try
                         {
-                            //  OrderId = int.Parse(data[0]),
+                            dt1 = DateTime.ParseExact(date, "yy-MM-dd",
+                                          CultureInfo.InvariantCulture);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine(e.Message);
+                            dt1 = null;
+                            ;
+                        }
+
+
+                        temp = new Order
+                        {
+                            OrderNumber = OrderNumberList,
                             Vessel_name = VesselList,
                             Shipyard = ShipyardList,
                             Owner = OwnerList,
                             HullNr = HullList,
                             // SalesId = int.Parse(data[5]),
                             Buyer = BuyerList,
-                            DeliveryDate = DateTime.Parse(date),
+                            DeliveryDate = dt1,
                             PartsOrdered = PartsList
 
 
                         };
+
                     }
 
-              
-               
-                orders.Add(temp);
 
+
+                    orders.Add(temp);
+                    CurrentOrder = "";
                 }
             }
-            foreach(Order o in orders)
+            foreach (Order o in orders)
             {
-              await _context.AddAsync(o);
+                await _context.AddAsync(o);
                 await _context.SaveChangesAsync();
             }
-           
+
             return result.ToString();
             // }
             // else
@@ -207,11 +265,19 @@ namespace CoreApi.Controllers
             List<Order> Orders = await _context.Order.ToListAsync();
             foreach (Order o in Orders)
             {
-                double NrOfDays = (o.DeliveryDate - DateTime.Now).TotalDays;
+                double NrOfDays = (o.DeliveryDate.GetValueOrDefault() - DateTime.Now).TotalDays;
 
-                if (NrOfDays <= 30)
+                if (NrOfDays <= 30 )
                 {
-                    o.DeliveryIsClose = "DeliverySoon";
+                    if(DateTime.Now - o.DeliveryDate < TimeSpan.FromHours(2))
+                    {
+                        o.DeliveryIsClose = "DeliverySoon";
+                    }
+                    else
+                    {
+                        o.DeliveryIsClose = "";
+                    }
+                 
                     mailmessage += "The order with order id: " + o.OrderId + "needs to get refreshed" + "\n";
                 }
                 else

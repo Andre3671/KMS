@@ -30,7 +30,7 @@
                 $store.state.Orders = $vs.sortData(
                   $event,
                   $store.state.Orders,
-                  'orderId'
+                  'orderNumber'
                 )
               "
             >
@@ -114,7 +114,7 @@
               <i v-if="tr.deliveryIsClose != ''" class="material-icons-outlined" v-bind:class="tr.deliveryIsClose"> access_alarm </i></p>
             </vs-td>
             <vs-td>
-              {{ tr.orderId }}
+              {{ tr.orderNumber }}
             </vs-td>
             <vs-td>
               {{ tr.hullNr }}
