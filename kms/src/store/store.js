@@ -14,7 +14,11 @@ export default new Vuex.Store({
     async GetOrders(state, payload) {
       let response = await fetch('https://localhost:44305/Orders');
       let data = await response.json();
+      data.forEach(element => {
+        element.deliveryDate = element.deliveryDate.split('T')[0];
+      });
       this.state.Orders = data;
+      console.log(this.state.Orders);
     },
     async PostOrder(state, payload) {
       console.log(JSON.stringify(payload));

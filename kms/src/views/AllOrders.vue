@@ -1,9 +1,12 @@
 <template>
   <div class="home">
-    <link
+    <head>
+        <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
+    </head>
+  
     <h1>All orders</h1>
     <div class="center">
       <vs-table v-model="selected">
@@ -18,6 +21,8 @@
                 v-model="allCheck"
                 @change="selected = $vs.checkAll(selected, $store.state.Orders)"
               />
+            </vs-th>
+            <vs-th>
             </vs-th>
             <vs-th
               sort
@@ -99,9 +104,14 @@
             v-for="(tr, i) in $vs.getSearch($store.state.Orders, search)"
             :data="tr"
             :is-selected="!!selected.includes(tr)"
+            v-bind:id="tr.deliveryIsClose"
           >
             <vs-td checkbox>
               <vs-checkbox :val="tr" v-model="selected" />
+            </vs-td>
+            <vs-td>
+              <p>
+              <i v-if="tr.deliveryIsClose != ''" class="material-icons-outlined" v-bind:class="tr.deliveryIsClose"> access_alarm </i></p>
             </vs-td>
             <vs-td>
               {{ tr.orderId }}
@@ -154,7 +164,9 @@
 </template>
 
 <script>
+import 'material-icons/iconfont/material-icons.css';
 export default {
+  
   name: "AllOrders",
   data() {
     return {
@@ -166,8 +178,6 @@ export default {
   },
   mounted: async function () {
     await this.$store.commit("GetOrders");
-    console.log(this.$store.state.Orders);
-    console.log(this.users);
   },
   methods: {
     test: function () {
@@ -189,26 +199,25 @@ export default {
         var parts = [];
         var OrderParts = "";
         if (element.partsOrdered.length > 0) {
-          OrderParts += "\"";
-          element.partsOrdered.forEach( part => {
-            
-            if(part.name.length > 0){
-               OrderParts += part.name;
-               console.log(OrderParts);
+          OrderParts += '"';
+          element.partsOrdered.forEach((part) => {
+            if (part.name.length > 0) {
+              OrderParts += part.name;
+              console.log(OrderParts);
             }
-            if(part.spec.length > 0){
-               OrderParts += part.spec;
-               console.log(OrderParts);
+            if (part.spec.length > 0) {
+              OrderParts += part.spec;
+              console.log(OrderParts);
             }
             OrderParts += "\r\n";
             parts.push(OrderParts);
             OrderParts = "";
           });
-          parts.forEach(part=> {
-             console.log(part);
-             csvContent +=  part + "\n"  ;
+          parts.forEach((part) => {
+            console.log(part);
+            csvContent += part + "\n";
           });
-          csvContent += "\"" + "\n";
+          csvContent += '"' + "\n";
         }
       });
 
@@ -224,4 +233,5 @@ export default {
   },
 };
 </script>
-<style lang="stylus"></style>
+<style >
+</style>

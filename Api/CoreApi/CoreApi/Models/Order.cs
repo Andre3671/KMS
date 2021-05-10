@@ -14,7 +14,8 @@ namespace CoreApi.Models
         public string HullNr { get; set; }
         public int SalesId { get; set; }
         public string Buyer { get; set; }
-        public string DeliveryDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
+        public string DeliveryIsClose { get; set; }
         public List<Part> PartsOrdered { get; set; }
         public Order()
         {
