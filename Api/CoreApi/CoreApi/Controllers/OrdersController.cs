@@ -30,25 +30,36 @@ namespace CoreApi.Controllers
         }
         [Route("api/sendmail/")]
         [HttpGet]
-        public static IRestResponse SendSimpleMessage(string message)
+        public static bool SendSimpleMessage(string message)
         {
-            RestClient client = new RestClient();
-            client.BaseUrl = new Uri("https://api.mailgun.net/v3/sandbox74ab02a1ad214821aa276b43a7215e47.mailgun.org/messages");
+           
 
-            client.Authenticator =
+            try
+            {
+                MailMessage mail = new MailMessage();
+                SmtpClient SmtpServer = new SmtpClient();
 
-                new HttpBasicAuthenticator("api",
-                    "e136b2cb19344d1572bcdd17ad887671-2a9a428a-dbb8b81b");
-            RestRequest request = new RestRequest();
-            request.AddParameter("domain", "sandbox74ab02a1ad214821aa276b43a7215e47.mailgun.org", ParameterType.UrlSegment);
-            request.AddParameter("from", "<mailgun@sandbox74ab02a1ad214821aa276b43a7215e47.mailgun.org>");
-            request.AddParameter("to", "andre.roygaard@gmail.com");
-            request.AddParameter("to", "andre.roygaard@gmail.com");
-            request.AddParameter("subject", "Hello");
-            request.AddParameter("text", message);
-            request.Method = Method.POST;
-            var abc = client.Execute(request);
-            return abc;
+                mail.From = new MailAddress("pmi@kockumationconnect.com");
+                mail.To.Add("andre.roygaard@gmail.com");
+                mail.Subject = "Order update";
+                mail.Body = message;
+                SmtpServer.Host = "smtp.zoho.com";
+                SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+                SmtpServer.Port = 587;
+                SmtpServer.UseDefaultCredentials = false;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("pmi@kockumationconnect.com", "7Yr%sSq)");
+                SmtpServer.EnableSsl = true;
+
+                SmtpServer.Send(mail);
+                Console.WriteLine("Mail was sent");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+
+            return true;
         }
 
         [Route("api/Orders/file/")]
@@ -272,13 +283,14 @@ namespace CoreApi.Controllers
                     if(DateTime.Now - o.DeliveryDate < TimeSpan.FromHours(2))
                     {
                         o.DeliveryIsClose = "DeliverySoon";
+                        mailmessage += "The order with order number: " + o.OrderNumber + " needs to get refreshed" + "\n";
                     }
                     else
                     {
                         o.DeliveryIsClose = "";
                     }
                  
-                    mailmessage += "The order with order id: " + o.OrderId + "needs to get refreshed" + "\n";
+                    
                 }
                 else
                 {
