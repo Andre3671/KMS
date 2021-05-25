@@ -10,7 +10,8 @@
   <vs-input v-model="Order.Shipyard" type="text" label="Shipyard:" />
   <vs-input v-model="Order.Owner" type="text" label="Owner:" />
     <vs-input v-model="Order.Buyer" type="text" label="Buyer:" />
-<vs-input v-model="Order.DeliveryDate" type="date" label="DeliveryDate" />
+<vs-input v-model="Order.DeliveryDate" type="date" label="Port loading date" />
+<vs-input v-model="Order.Delivery" type="date" label="DeliveryDate" />
     <!-- <vs-select placeholder="Cycle" label="Cycle:" v-model="Order.Cycle">
         <vs-option label="5 Years" value="5">
           5 Years
@@ -79,6 +80,7 @@ data:() => ({
         Buyer: '',
         DeliveryDate: '',
         Cycle: "",
+        Delivery:'',
         PartsOrdered:[],
   },
   Part:{

@@ -16,6 +16,7 @@ namespace CoreApi.Models
         public string Buyer { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public string DeliveryIsClose { get; set; }
+        public DateTime? Delivery { get; set; }
         public string OrderNumber { get; set; }
         public List<Part> PartsOrdered { get; set; }
         public Order()

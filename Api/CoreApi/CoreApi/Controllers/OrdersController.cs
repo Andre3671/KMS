@@ -276,11 +276,11 @@ namespace CoreApi.Controllers
             List<Order> Orders = await _context.Order.ToListAsync();
             foreach (Order o in Orders)
             {
-                double NrOfDays = (o.DeliveryDate.GetValueOrDefault() - DateTime.Now).TotalDays;
+                double NrOfDays = (o.Delivery.GetValueOrDefault() - DateTime.Now).TotalDays;
 
                 if (NrOfDays <= 30 )
                 {
-                    if(DateTime.Now - o.DeliveryDate < TimeSpan.FromHours(2))
+                    if(DateTime.Now - o.Delivery < TimeSpan.FromHours(2))
                     {
                         o.DeliveryIsClose = "DeliverySoon";
                         mailmessage += "The order with order number: " + o.OrderNumber + " needs to get refreshed" + "\n";
