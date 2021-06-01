@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     Orders: [],
     Order: {},
-    file: []
+    file: [],
+    UpdateOrder: {},
+    dialogactive:false,
   },
   mutations: {
     async GetOrders(state, payload) {
@@ -25,6 +27,20 @@ export default new Vuex.Store({
       console.log(JSON.stringify(payload));
      var response = await fetch("https://localhost:44305/Orders/", {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json'
+
+        },
+        body:JSON.stringify(payload)
+    }).then(response => response)
+     return(response)
+      
+    },
+    async EditOrder(state, payload) {
+      console.log(JSON.stringify(payload));
+     var response = await fetch("https://localhost:44305/api/Orders/edit/", {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json'

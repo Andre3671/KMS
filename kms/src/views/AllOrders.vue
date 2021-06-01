@@ -3,49 +3,12 @@
     <head>
         <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     </head>
   
     <h1>All orders</h1>
     <div class="center">
-          <vs-dialog blur v-model="active">
-        <template #header>
-          <h4 class="not-margin">
-            Welcome to <b>Vuesax</b>
-          </h4>
-        </template>
-
-
-        <div class="con-form">
-          <vs-input v-model="input1" placeholder="Email">
-            <template #icon>
-              @
-            </template>
-          </vs-input>
-          <vs-input type="password" v-model="input2" placeholder="Password">
-            <template #icon>
-              <i class='bx bxs-lock'></i>
-            </template>
-          </vs-input>
-          <div class="flex">
-            <vs-checkbox v-model="checkbox1">Remember me</vs-checkbox>
-            <a href="#">Forgot Password?</a>
-          </div>
-        </div>
-
-        <template #footer>
-          <div class="footer-dialog">
-            <vs-button block>
-              Sign In
-            </vs-button>
-
-            <div class="new">
-              New Here? <a href="#">Create New Account</a>
-            </div>
-          </div>
-        </template>
-      </vs-dialog>
+   <EditOrderDialog :dialogactive='this.active' :Order='this.EditOrder'/>
       <vs-table v-model="selected">
         <template #header>
           <vs-input v-model="search" border placeholder="Search" />
@@ -198,13 +161,10 @@
                   </ul>
                 </div>
                 <div style="float: right">
-                   <vs-button v-on="active = !active" >
+                   <vs-button @click="OpenDialog(tr.orderId)" >
                     Edit Order
                   </vs-button>
-
-                 <!-- <vs-button border danger>
-                    Reset Expiration
-                  </vs-button> -->
+ 
                 </div>
               </div>
             </template>
@@ -215,25 +175,41 @@
     </div>
   </div>
 </template>
-
 <script>
 import 'material-icons/iconfont/material-icons.css';
+import EditOrderDialog from '../components/EditOrderDialog'
 export default {
-  
   name: "AllOrders",
+  components:{
+    EditOrderDialog
+  },
   data() {
-    return {
+    return { 
       active: false,
       allCheck: false,
       selected: [],
       search: "",
       users: this.$store.state.Orders,
+      EditOrder: {},
     };
   },
   mounted: async function () {
     await this.$store.commit("GetOrders");
   },
   methods: {
+     OpenDialog: function(orderid) {
+       this.$store.state.dialogactive =! this.$store.state.dialogactive;
+       console.log(this.users);
+       var selectedrow = this.$store.state.Orders.find(a => a.orderId == orderid);
+       console.log(selectedrow)
+       this.$store.state.UpdateOrder = selectedrow;
+       console.log(this.$store.state.UpdateOrder)
+       console.log(orderid)
+
+    },
+    Edit: function(Order) {
+       this.$store.commit("EditOrder",Order)
+    },
     test: function () {
       var csvContent = "data:text/csv;charset=utf-8,";
       const columndata = Object.keys(this.selected[0])

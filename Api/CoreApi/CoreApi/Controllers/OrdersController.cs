@@ -319,6 +319,24 @@ namespace CoreApi.Controllers
 
             return View(order);
         }
+        [HttpPut]
+        [Route("api/Orders/edit/")]
+        public async Task<IActionResult> Edit([FromBody]Order EditOrder)
+        {
+            
+
+        //var order =  await _context.Order.FirstOrDefaultAsync(m => m.OrderId == EditOrder.OrderId);
+           var order = EditOrder;
+            if (order == null && order.OrderId == 0)
+            {
+                return NotFound();
+            }
+            _context.Update(order);
+       var result = await _context.SaveChangesAsync();
+           
+
+            return Ok(result);
+        }
 
         // GET: Orders/Create
         public IActionResult Create()
